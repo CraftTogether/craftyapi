@@ -10,5 +10,6 @@ public class BlockBreakListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onBlockBreak(BlockBreakEvent event) {
         DataHandler.addGlobalBlockBroken();
+        DataHandler.addPlayerBlockBroken(event.getPlayer());
     }
 }

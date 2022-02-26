@@ -1,6 +1,9 @@
 package xyz.crafttogether.craftyapi;
 
 import com.google.gson.Gson;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
@@ -9,6 +12,7 @@ import xyz.crafttogether.craftyapi.data.DataHandler;
 import xyz.crafttogether.craftyapi.listeners.BlockBreakListener;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import static spark.Spark.*;
 
@@ -35,6 +39,16 @@ public class CraftyAPI extends JavaPlugin {
                     response.type("application/json");
                     return gson.toJson(DataHandler.getGlobalBlocksBroken());
                 }));
+            });
+            path("/user", () -> {
+                get("/:id/blocks-broken", (request, response) -> {
+                    String uuid = request.params().get(":id");
+                    System.out.println(uuid);
+                    OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
+                    response.status(200);
+                    response.type("application/json");
+                    return gson.toJson(DataHandler.getUserBlocksBroken(player));
+                });
             });
         });
     }
