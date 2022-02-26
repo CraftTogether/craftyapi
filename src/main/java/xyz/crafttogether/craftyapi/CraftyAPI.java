@@ -1,3 +1,5 @@
+package xyz.crafttogether.craftyapi;
+
 import com.google.gson.Gson;
 import org.bukkit.plugin.java.JavaPlugin;
 
